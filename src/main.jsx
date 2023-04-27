@@ -11,30 +11,34 @@ import Home from './Pages/Home/Home';
 import Category from './Pages/Category/Category';
 import NewsLayout from './layouts/NewsLayout';
 import News from './Pages/News/NEWS/News';
+import AuthProvider from './Providers/AuthProvider';
 
 const router = createBrowserRouter([
   {
     path: "/",
     element: <Main></Main>,
-    children:[
+    children: [
       {
-        path:'/',
-        element:<Home></Home>
+        path: '/',
+        element: <Category></Category>,
+        loader: () => fetch('http://localhost:5000/news')
       },
       {
-        path:'/category/:id',
-        element:<Category></Category>
+        path: '/category/:id',
+        element: <Category></Category>,
+        loader: ({ params }) => fetch(`http://localhost:5000/catagories/${params.id}`)
       }
     ]
   },
 
   {
-    path:'news',
-    element:<NewsLayout></NewsLayout>,
-    children:[
+    path: 'news',
+    element: <NewsLayout></NewsLayout>,
+    children: [
       {
-        path:'news/:id',
-        element:<News></News>
+        path: ':id',
+        element: <News></News>,
+        loader: ({ params }) => fetch(`http://localhost:5000/news/${params.id}`)
       }
     ]
   }
@@ -43,6 +47,8 @@ const router = createBrowserRouter([
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
-    <RouterProvider router={router} />
+    <AuthProvider>
+      <RouterProvider router={router} />
+    </AuthProvider>
   </React.StrictMode>,
 )
