@@ -1,12 +1,35 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { Button, Container,Form } from 'react-bootstrap';
-import { Link } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
+import { AuthContext } from '../../Providers/AuthProvider';
 
 const Login = () => {
+  const {loggedUser} = useContext(AuthContext)
+  const navigate = useNavigate()
+  const location = useLocation()
+  console.log('login page location',location)
+  const from = location.state?.from?.pathname || '/category/0'
+
+  const handelSingIn = event =>{
+    event.preventDefault()
+    const form = event.target
+    const email = form.email.value
+    const password = form.password.value
+    loggedUser(email, password)
+    .then(result=>{
+      const login = result.user
+      console.log(login)
+      navigate(from,{replace:true})
+    })
+    .catch(error=>{
+      console.log(error.message)
+    })
+  } 
+
   return (
     <Container className='mx-auto w-25 mt-5'>
       <h4 className='text-center mb-2'>Please Login Here</h4>
-      <Form>
+      <Form onSubmit={handelSingIn}>
       <Form.Text className="text-success">
             We'll never share your email with anyone else.
           </Form.Text>

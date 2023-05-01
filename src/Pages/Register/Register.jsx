@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { useContext, useState } from 'react';
 import { Button, Container, Form } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import { AuthContext } from '../../Providers/AuthProvider';
@@ -6,6 +6,12 @@ import { AuthContext } from '../../Providers/AuthProvider';
 const Register = () => {
 
   const {createUser} = useContext(AuthContext)
+  const [accepted , setAccepted] = useState(false)
+
+  const handelaccepted = (event) =>{
+      setAccepted(event.target.checked)
+
+  }
 
   const handelRegister = (event) =>{
    event.preventDefault()
@@ -15,6 +21,15 @@ const Register = () => {
    const email = form.email.value
    const password = form.password.value
    console.log(name,photo,email,password)
+   
+   createUser(email,password)
+   .then(result=>{
+    const createUser = result.user
+    console.log(createUser)
+   })
+   .catch(error=>{
+    console.log(error.message)
+   })
   }
 
   return (
@@ -45,10 +60,14 @@ const Register = () => {
         </Form.Group>
 
         <Form.Group className="mb-3" controlId="formBasicCheckbox">
-          <Form.Check type="checkbox" name='accept' label="Accept Terms And Condition" />
+          <Form.Check 
+          onClick={handelaccepted}
+          type="checkbox" 
+          name='accept' 
+          label={<>Accept <Link to = "/terms">Terms And Condition</Link></>} />
         </Form.Group>
-        <Button variant="primary" type="submit">
-          Login
+        <Button disabled={!accepted} variant="primary" type="submit">
+          Register
         </Button>
         <br />
         <Form.Text className='text-secondary'>
