@@ -34,6 +34,7 @@ const PrivateRoute = ({ children }) => {
 
 export default PrivateRoute;
 
+
 /**
  * --------------
     STEPS
