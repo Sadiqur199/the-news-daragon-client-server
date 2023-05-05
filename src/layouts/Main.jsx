@@ -7,8 +7,10 @@ import RightNav from '../Pages/Shared/RightNav/RightNav';
 import Header from '../Pages/Shared/Navbar/Header';
 import { Outlet } from 'react-router-dom';
 import NavegationBar from '../Pages/Shared/NavegationBar/NavegationBar';
+import UseTitle from '../hooks/UseTitle';
 
 const Main = () => {
+  UseTitle('Home')
   return (
     <div>
       <Header></Header>

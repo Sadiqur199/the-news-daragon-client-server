@@ -6,9 +6,13 @@ import { Link } from 'react-router-dom';
 import { FaEye, FaRegBookmark ,FaRegStar,FaShareAlt, FaStar} from 'react-icons/fa';
 import { Rating } from '@smastrom/react-rating'
 import '@smastrom/react-rating/style.css'
+import UseTitle from '../../../hooks/UseTitle';
 
 const NewsCard = ({ news }) => {
+  UseTitle('NewsDetails')
   const { _id, title, details,image_url,author,total_view,rating} = news;
+  UseTitle(`News-${author.name}`)
+
   return (
     <Card className="mb-4">
       <Card.Header className='d-flex align-items-center'>

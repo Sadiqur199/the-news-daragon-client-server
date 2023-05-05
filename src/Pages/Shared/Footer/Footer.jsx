@@ -2,8 +2,9 @@ import React from 'react';
 
 const Footer = () => {
   return (
-    <div className="text-center">
-      <p>this is footer</p>
+    <div style={{backgroundColor:"#6C757D"}} className="text-center  text-white mt-3">
+      <p>Copy Right @ 2023
+      </p>
     </div>
   );
 };

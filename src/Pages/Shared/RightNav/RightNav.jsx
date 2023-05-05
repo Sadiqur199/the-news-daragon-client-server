@@ -4,8 +4,10 @@ import { FaGoogle, FaGithub, FaFacebook, FaTwitter, FaInstagram } from 'react-ic
 import QZone from '../QZone/QZone';
 import bg from '../../../assets/bg.png'
 import './RightNav.css'
+import UseTitle from '../../../hooks/UseTitle';
 
 const RightNav = () => {
+  UseTitle('Login')
   return (
     <div className='mt-4'>
       <h4>Login With</h4>
